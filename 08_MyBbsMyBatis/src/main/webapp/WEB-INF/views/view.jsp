@@ -14,7 +14,7 @@
 	작성자 : ${dto.writer}<br>
 	제목 : ${dto.title}<br>
 	내용 : ${dto.content}<br>
-	<a href="/list"><button>뒤로가기</button><a/>
+	<a href="./list"><button>뒤로가기</button><a/>
 </div>
 </body>
 </html>

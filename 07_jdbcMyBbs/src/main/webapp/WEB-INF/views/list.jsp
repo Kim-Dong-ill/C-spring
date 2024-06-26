@@ -12,11 +12,11 @@
 <h2>
 	<c:forEach var="dto" items="${lists}">
 		<div>${dto.id}</div>
-		<a href="/view?id=${dto.id}"><div>${dto.title}</div></a>
+		<a href="./view?id=${dto.id}"><div>${dto.title}</div></a>
 		<div>${dto.content}</div>
-		<a href="/delete?id=${dto.id}"><button>삭제</button></a>
+		<a href="./delete?id=${dto.id}"><button>삭제</button></a>
 	</c:forEach>
-	<a href="writerForm">글쓰기</a>
+	<a href="./writerForm">글쓰기</a>
 </h2>
 </body>
 </html>
