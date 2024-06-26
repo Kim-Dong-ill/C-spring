@@ -15,7 +15,7 @@ public class MyBbsDAO implements IMyBbsDAO{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	//다수 항목
+	//다수 항목aaaa
 	@Override
 	public List<MyBbsDTO> listDao(){
 		
