@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.dao.IMyBbsDAO;
 import com.example.demo.dto.MyBbsDTO;
+import com.example.demo.service.IMyBbsService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 public class MyController {
 	
+//	@Autowired
+//	IMyBbsDAO dao;	//부모격인 인터페이스dao만 가져와도 오버라이딩된게 들어온다.
+	
 	@Autowired
-	IMyBbsDAO dao;	//부모격인 인터페이스dao만 가져와도 오버라이딩된게 들어온다.
+	IMyBbsService dao; //dao에서 service거 처서 들어온다.
 	
 	@RequestMapping("/")
 	public String root() {
@@ -30,7 +34,7 @@ public class MyController {
 	@RequestMapping("/list")
 	public String listPage(Model model) {
 		
-		model.addAttribute("lists",dao.listDao());
+		model.addAttribute("lists",dao.list());
 		
 		return "list";
 	}
@@ -40,14 +44,14 @@ public class MyController {
 	public String view(HttpServletRequest request, Model model) {
 		
 		String sId = request.getParameter("id");
-		model.addAttribute("dto",dao.viewDao(sId));
+		model.addAttribute("dto",dao.view(sId));
 		return "view";
 	}
 	
 	//삭제
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request) {
-		dao.deleteDao(request.getParameter("id"));
+		dao.delete(request.getParameter("id"));
 		
 		return "redirect:list";
 	}
@@ -55,7 +59,7 @@ public class MyController {
 	//글쓰기
 	@RequestMapping("/write")
 	public String write(HttpServletRequest request) {
-		dao.writeDao(
+		dao.write(
 				request.getParameter("writer"),
 				request.getParameter("title"),
 				request.getParameter("content")
