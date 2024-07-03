@@ -2,10 +2,10 @@ name: Github Action 실행
 
 on:
   push:
-    branch:
+    branches:
       - main
 
-job:
+jobs:
   #아래 이름은 그냥 제목같은거 
   My-Deploy-jab:
     runs-on: ubuntu-latest
