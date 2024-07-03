@@ -57,7 +57,7 @@ public class DateController {
         	return ResponseEntity.ok().body(faleReservation);
         }
         
-	   	//예약 가능한 날짜일때 ↓↓↓↓↓
+	   	//예약 가능한 날짜일때 ↓↓↓↓
 	   	//dto를 entitiy로 변환
 	   	Reservation entity=dto.toEntity();
 	    	
