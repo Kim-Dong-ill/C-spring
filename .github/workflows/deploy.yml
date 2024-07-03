@@ -1,5 +1,6 @@
 name: Github Action 실행
 
+# main 브런치로 실행한다.
 on:
   push:
     branch:
@@ -19,3 +20,13 @@ job:
         run: |
           echo "hello world!!"
           echo "good!!!"
+
+      - name: github action 변수
+        run: |
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+      
+      - name: github secrets name
+        run: |
+          echo ${{ secrets.MY_NAME }}
+          echo ${{ secrets.MY_HODDY }}
