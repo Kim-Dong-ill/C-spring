@@ -20,7 +20,6 @@ jobs:
         run: |
           echo "hello world!!"
           echo "good!!!"
-<<<<<<< HEAD
 
       - name: github action 변수
         run: |
@@ -31,5 +30,3 @@ jobs:
         run: |
           echo ${{ secrets.MY_NAME }}
           echo ${{ secrets.MY_HODDY }}
-=======
->>>>>>> branch 'main' of https://github.com/Kim-Dong-ill/c-spring.git
