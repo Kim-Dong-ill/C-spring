@@ -12,7 +12,8 @@ public class TestDto {
 	
 	public TestDto(){}
 
-	public TestDto(String title, String content) {
+	public TestDto(Long id,String title, String content) {
+		this.id = id;
 		this.title = title;
 		this.content = content;
 	}
