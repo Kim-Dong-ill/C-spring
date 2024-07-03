@@ -1,12 +1,12 @@
 package com.example.demo.controller;
 
-import java.time.LocalDate;
-import java.util.List;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,9 +42,22 @@ public class DateController {
 	   		) {
 	   	
 	   	log.info("요청 값 : "+dto);
-	    	
-
-	   	
+	    
+	   	LocalDateTime startDate = dto.getStartDate();
+        LocalDateTime endDate = dto.getEndDate();
+        
+        //예약 불가능한 날짜일때 ↓↓↓↓↓
+        // 예약 가능 여부 확인(예약 불가시 Reservation형으로 메세지 포함해서 반환 필요)
+        if (isReservation(startDate, endDate)) {
+        	log.error("예약불가");
+        	Reservation faleReservation = new Reservation();
+        	faleReservation.setStartDate(startDate);
+        	faleReservation.setEndDate(endDate);
+        	faleReservation.setMessage("선택한 날짜 범위에 이미 예약된 날짜가 포함되어 있습니다.");
+        	return ResponseEntity.ok().body(faleReservation);
+        }
+        
+	   	//예약 가능한 날짜일때 ↓↓↓↓↓
 	   	//dto를 entitiy로 변환
 	   	Reservation entity=dto.toEntity();
 	    	
@@ -53,4 +66,10 @@ public class DateController {
 	        
 	    return ResponseEntity.ok(saveDate);
 	}
+	
+	//예약 가능일 확인
+	private boolean isReservation(LocalDateTime start, LocalDateTime end) {
+        List<Reservation> overlappingReservations = reservationRepository.findOverlappingReservations(start, end);
+        return !overlappingReservations.isEmpty();
+    }
 }
