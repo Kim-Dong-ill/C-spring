@@ -1,0 +1,21 @@
+name: Github Action 실행
+
+on:
+  push:
+    branch:
+      - main
+
+job:
+  #아래 이름은 그냥 제목같은거 
+  My-Deploy-jab:
+    runs-on: ubuntu-latest
+
+    steps:
+      # name은 역시 제목
+      - name: hello world 찍기
+        run: echo "hello world"
+
+      - name: 여러 명령어 실행
+        run: |
+          echo "hello world!!"
+          echo "good!!!"
