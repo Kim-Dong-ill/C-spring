@@ -1,5 +1,8 @@
 package com.example.demo.api;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,13 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.api.request.CreateAndEditrestaurantRequest;
+import com.example.demo.api.response.RestaurantView;
+import com.example.demo.service.RestaurantService;
 
 @RestController
 public class RestaurantApi {
 
+	@Autowired
+	RestaurantService restaurantService;
+	
 	@GetMapping("/restaurants")
-	public String getRestaurants() {
-		return "getRestaurants";
+	public List<RestaurantView> getRestaurants() {
+//		return "getRestaurants";
+		return restaurantService.getAllRestaurants();
 	}
 	
 	@GetMapping("/restaurants/{restaurantId}")
