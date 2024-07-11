@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.service.ProductService;
 import com.example.demo.utill.CustomFileUtill;
 
 import lombok.RequiredArgsConstructor;
@@ -26,9 +27,10 @@ import lombok.extern.log4j.Log4j2;
 public class ProductController {
 
 	private final CustomFileUtill fileUtill;
+	private final ProductService productService;
 	
 	@PostMapping("/")
-	public Map<String, String> register(ProductDTO productDto) {
+	public Map<String, Long> register(ProductDTO productDto) {
 		
 		log.info("register : "+productDto);
 		
@@ -38,7 +40,9 @@ public class ProductController {
 		productDto.setUploadFileNames(uploadFilenames);
 		log.info(uploadFilenames);
 		
-		return Map.of("Result","success");
+		Long pno = productService.register(productDto);
+		
+		return Map.of("Result",pno);
 	}
 	
 	//파일명을 입력했을떄 화면에 파일이 나오게
