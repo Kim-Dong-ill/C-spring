@@ -34,9 +34,10 @@ public class KakaoPayService {
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "1001");//가맹점 주문 번호
         params.add("partner_user_id", "gorany");//가맹점 회원 ID
-        params.add("item_name", "캠핑장 텐트");//상품명
+        params.add("store_name", "여기어때"); // 이 줄을 추가하세요
+        params.add("item_name", "가평 오롯하다글램핑 글램핑바다 6인");//상품명
         params.add("quantity", "1");//주문 수량
-        params.add("total_amount", "450000");//총 금액
+        params.add("total_amount", "427500");//총 금액
         params.add("tax_free_amount", "100");//상품 비과세 금액
         params.add("approval_url", "http://localhost:3000/camp/pay/complete");
         params.add("cancel_url", "http://localhost:3000/camp/pay/cancel");
@@ -49,12 +50,6 @@ public class KakaoPayService {
                 requestEntity,
                 KakaoPayReadyResponse.class);
         
-//        ResponseEntity<KakaoPayReadyResponse> response = restTemplate.postForEntity(HOST + "/v1/payment/ready", body, KakaoPayReadyResponse.class);
-//        kakaoPayReadyResponse = response.getBody();
-//        log.info("response : "+response);
-//        log.info("response.getBody : "+response.getBody());
-        
-//        return restTemplate.postForObject(HOST + "/v1/payment/ready", requestEntity, String.class);
         return kakaoPayReadyResponse;
     }
     
