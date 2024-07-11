@@ -1,8 +1,13 @@
 package com.example.demo.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class PaymentApprovalResponse {
 	private String aid;
     private String tid;
@@ -19,7 +24,9 @@ public class PaymentApprovalResponse {
     private String created_at;
     private String approved_at;
 
-    @Data
+    @Getter
+    @Setter
+    @ToString
     public static class Amount {
         private int total;
         private int tax_free;
@@ -28,7 +35,9 @@ public class PaymentApprovalResponse {
         private int discount;
     }
 
-    @Data
+    @Getter
+    @Setter
+    @ToString
     public static class CardInfo {
         private String purchase_corp;
         private String purchase_corp_code;
