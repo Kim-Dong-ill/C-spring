@@ -18,4 +18,6 @@ public interface ProductService {
 	//삭제하기
 	void remove(Long pno);
 
+	ProductDTO get(Long pno);
+
 }

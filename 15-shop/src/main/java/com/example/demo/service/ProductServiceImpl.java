@@ -137,8 +137,13 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public void remove(Long pno) {
+		productRepo.updateToDelete(pno,true);
+	}
+
+	@Override
+	public ProductDTO get(Long pno) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 	
 }
