@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,7 +37,35 @@ public class ProductServiceImpl implements ProductService{
 		
 		Page<Object[]> result = productRepo.selectList(pageable);
 		
-		return null;
+//		List<ProductDTO> dtoList = result.get().map(null).toList();
+		List<ProductDTO> dtoList = result.get().map(
+				arr -> {
+					ProductDTO productDTO = null;
+					Product product = (Product) arr[0];
+					ProductImage productImage = (ProductImage) arr[1];
+					
+					productDTO = ProductDTO.builder()
+							.pno(product.getPno())
+							.pname(product.getPname())
+							.pdesc(product.getPdesc())
+							.price(product.getPrice())
+							.build();
+					
+					String imageStr = productImage.getFileName();
+					productDTO.setUploadFileNames(List.of(imageStr));
+					
+					return productDTO;
+					
+				})
+				.toList();
+		
+		long totalCount = result.getTotalElements();
+		
+		return PageResponseDTO.<ProductDTO>withAll()
+				.dtoList(dtoList)
+				.totalCount(totalCount)
+				.pageRequestDTO(pageRequestDTO)
+				.build();
 	}
 
 	@Override
@@ -73,6 +102,43 @@ public class ProductServiceImpl implements ProductService{
 		
 		
 		return product;
+	}
+
+	//수정
+	@Override
+	public void modify(ProductDTO productDTO) {
+		
+		//#1 read
+		Optional<Product> result = productRepo.findById(productDTO.getPno());
+		Product product = result.orElseThrow();
+		
+		//#2 change
+		product.changeName(productDTO.getPname());
+		product.changePrice(productDTO.getPrice());
+		product.changePdesc(productDTO.getPdesc());
+		
+		//#3 upload file clear
+		product.clearList();
+		
+		List<String> uploadFileNames = productDTO.getUploadFileNames();
+		
+		if(uploadFileNames != null && uploadFileNames.size() > 0) {
+			uploadFileNames.stream().forEach(
+					uploadName -> {
+						product.addImageString(uploadName);
+					});
+			
+		}
+		
+		//# last
+		productRepo.save(product);
+		
+	}
+
+	@Override
+	public void remove(Long pno) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

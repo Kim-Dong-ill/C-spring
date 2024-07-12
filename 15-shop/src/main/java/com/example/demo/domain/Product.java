@@ -65,6 +65,10 @@ public class Product {
 		this.delFlag = delFlag;
 	}
 	
+	public void clearList() {
+	this.imageList.clear();	
+	}
+	
 }
 
 
